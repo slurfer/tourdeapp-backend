@@ -17,3 +17,12 @@ exports.postTag = (req, res, next) => {
     })
     .catch((err) => console.log(err));
 };
+
+
+exports.getTags = (req, res, next) => {
+  Tag.findAll()
+    .then(tags => {
+      res.json(tags);
+    })
+    .catch((err) => console.log(err));
+};
