@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.post("/", programmerController.postProgrammer);
 
-router.get('/', programmerController.getProgrammers);
+router.get("/", programmerController.getProgrammers);
+
+router.delete("/:programmerId", programmerController.deleteProgrammers);
 
 module.exports = router;

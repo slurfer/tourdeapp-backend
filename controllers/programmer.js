@@ -18,8 +18,16 @@ exports.postProgrammer = (req, res, next) => {
 
 exports.getProgrammers = (req, res, next) => {
   Programmer.findAll()
-    .then(programmers => {
+    .then((programmers) => {
       res.json(programmers);
     })
+    .catch((err) => console.log(err));
+};
+
+exports.deleteProgrammers = (req, res, next) => {
+  programmerId = req.params.programmerId;
+  Programmer.findByPk(programmerId)
+    .then(programmer => programmer.destroy())
+    .then(res.status(200).send('Success.'))
     .catch((err) => console.log(err));
 };
