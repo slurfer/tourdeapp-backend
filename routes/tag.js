@@ -8,6 +8,8 @@ router.post("/", tagController.postTag);
 
 router.get("/", tagController.getTags);
 
-router.delete("/:tagId", tagController.deleteTags)
+router.delete("/:tagId", tagController.deleteTags);
+
+router.put("/:tagId", tagController.putTags);
 
 module.exports = router;
