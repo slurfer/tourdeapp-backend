@@ -15,3 +15,11 @@ exports.postProgrammer = (req, res, next) => {
     })
     .catch((err) => console.log(err));
 };
+
+exports.getProgrammers = (req, res, next) => {
+  Programmer.findAll()
+    .then(programmers => {
+      res.json(programmers);
+    })
+    .catch((err) => console.log(err));
+};
