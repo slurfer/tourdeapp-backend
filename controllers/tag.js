@@ -18,11 +18,18 @@ exports.postTag = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-
 exports.getTags = (req, res, next) => {
   Tag.findAll()
-    .then(tags => {
+    .then((tags) => {
       res.json(tags);
     })
+    .catch((err) => console.log(err));
+};
+
+exports.deleteTags = (req, res, next) => {
+  tagId = req.params.tagId;
+  Tag.findByPk(tagId)
+    .then(tag => tag.destroy())
+    .then(res.status(200).send("Success."))
     .catch((err) => console.log(err));
 };
