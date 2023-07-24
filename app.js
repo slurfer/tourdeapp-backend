@@ -11,6 +11,7 @@ const sequelize = require("./util/database");
 const Programmer = require("./models/programmer");
 const Record = require("./models/record");
 const Tag = require("./models/tag");
+const TagItem = require("./models/tag-item");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
@@ -34,6 +35,7 @@ Record.belongsTo(Programmer, { constrains: true, onDelete: "CASCADE" });
 Programmer.hasMany(Record);
 Tag.belongsTo(Programmer, { constrains: true, onDelete: "CASCADE" });
 Programmer.hasMany(Tag);
+Record.belongsToMany(Tag, { through: TagItem });
 
 sequelize
   // .sync({ force: true })

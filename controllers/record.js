@@ -33,6 +33,25 @@ exports.postRecord = (req, res, next) => {
       }
     })
     .then((record) => {
+      if (req.body.tagIds) {
+        return record.addTags(req.body.tagIds).then((result) => {
+          return record;
+        });
+      } else {
+        return record;
+      }
+    })
+    .then((record) => {
+      return record
+        .getTags()
+        .then((tags) => {
+          recordWithTags = { ...record.dataValues };
+          recordWithTags.tagIds = tags.map(tag => tag.id);
+          return recordWithTags;
+        })
+        .catch((err) => console.log(err));
+    })
+    .then((record) => {
       console.log(record);
       res.json(record);
     })
