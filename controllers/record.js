@@ -59,3 +59,11 @@ exports.postRecord = (req, res, next) => {
     })
     .catch((err) => console.log(err));
 };
+
+exports.deleteRecord = (req, res, next) => {
+  recordId = req.params.recordId;
+  Record.findByPk(recordId)
+    .then(record => record.destroy())
+    .then(res.status(200).send("Success."))
+    .catch((err) => console.log(err));
+};
