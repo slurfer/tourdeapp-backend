@@ -2,16 +2,18 @@ const Programmer = require("../models/programmer");
 const Record = require("../models/record");
 
 exports.getRecord = (req, res, next) => {
-  const record = {
-    date: "2022-12-28",
-    programmingLanguage: "python",
-    timeSpent: 20,
-    rating: 3,
-    tagIds: [2],
-    programmerId: 1,
-    description: "So this is, good.",
-  };
-  res.json(record);
+  Record.findAll({ include: ["tags"] })
+    .then((records) => {
+      let recorsdWithTags = records.map((record) => {
+        let r = record.dataValues;
+        r.tagIds = r.tags.map((tag) => tag.id);
+        delete r.tags;
+        return r;
+      });
+      console.log(recorsdWithTags);
+      res.json(records);
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.postRecord = (req, res, next) => {
@@ -46,7 +48,7 @@ exports.postRecord = (req, res, next) => {
         .getTags()
         .then((tags) => {
           recordWithTags = { ...record.dataValues };
-          recordWithTags.tagIds = tags.map(tag => tag.id);
+          recordWithTags.tagIds = tags.map((tag) => tag.id);
           return recordWithTags;
         })
         .catch((err) => console.log(err));
