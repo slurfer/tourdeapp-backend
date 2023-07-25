@@ -10,4 +10,6 @@ router.post("/", recordController.postRecord);
 
 router.delete("/:recordId", recordController.deleteRecord);
 
+router.put("/:recordId", recordController.putRecord);
+
 module.exports = router;

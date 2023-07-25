@@ -36,6 +36,7 @@ Programmer.hasMany(Record);
 Tag.belongsTo(Programmer, { constrains: true, onDelete: "CASCADE" });
 Programmer.hasMany(Tag);
 Record.belongsToMany(Tag, { through: TagItem });
+Tag.belongsToMany(Record, { through: TagItem });
 
 sequelize
   // .sync({ force: true })
