@@ -27,7 +27,37 @@ exports.getProgrammers = (req, res, next) => {
 exports.deleteProgrammers = (req, res, next) => {
   programmerId = req.params.programmerId;
   Programmer.findByPk(programmerId)
-    .then(programmer => programmer.destroy())
-    .then(res.status(200).send('Success.'))
+    .then((programmer) => programmer.destroy())
+    .then(res.status(200).send("Success."))
+    .catch((err) => console.log(err));
+};
+
+exports.putProgrammers = (req, res, next) => {
+  programmerId = req.params.programmerId;
+  Programmer.findByPk(programmerId)
+    .then((programmer) => {
+      if (req.body.name) {
+        programmer.name = req.body.name;
+      }
+      if (req.body.surname) {
+        programmer.surname = req.body.surname;
+      }
+      if (req.body.username) {
+        programmer.username = req.body.username;
+      }
+      if (req.body.email) {
+        programmer.email = req.body.email;
+      }
+      if (req.body.password) {
+        programmer.password = req.body.password;
+      }
+      if (req.body.admin) {
+        programmer.admin = req.body.admin;
+      }
+      return programmer.save();
+    })
+    .then((programmer) => {
+      res.json(programmer);
+    })
     .catch((err) => console.log(err));
 };

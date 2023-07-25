@@ -10,4 +10,6 @@ router.get("/", programmerController.getProgrammers);
 
 router.delete("/:programmerId", programmerController.deleteProgrammers);
 
+router.put("/:programmerId", programmerController.putProgrammers)
+
 module.exports = router;
